@@ -26,7 +26,8 @@ sudo systemctl daemon-reload
 sudo pacman -S --needed base-devel git
 git clone https://aur.archlinux.org/yay.git
 cd yay
-makepkg -si
+makepkg -si --noconfirm
+
 # ============================================================
 # --- Installer Pamac depuis l’AUR (interface graphique de gestion de paquets) ---
 https://www.linuxtricks.fr/wiki/arch-linux-parametrer-aur-et-installer-pamac
