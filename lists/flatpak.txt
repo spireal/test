@@ -1,0 +1,11 @@
+ it.mijorus.gearlever 
+ me.proton.Pass
+ com.microsoft.Teams     
+ com.bitwarden.desktop
+ com.github.IsmaelMartinez.teams_for_linux
+ org.onlyoffice.desktopeditors
+ com.github.tenderowl.frog
+ com.spotify.Client
+ com.discordapp.Discord
+ com.github.jeromerobert.pdfarranger
+ com.visualstudio.code

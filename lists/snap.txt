@@ -1,0 +1,6 @@
+plex-desktop
+chatgpt-desktop
+perplexity-desktop
+copilot-desktop
+teams-for-linux
+whatsapp-linux-app

@@ -1,59 +1,78 @@
 #!/bin/bash
 
-# ====================================================================================
-#     Mises à jour du système
-# ====================================================================================
-sudo pacman -Syu --noconfirm
-sudo pacman -S --noconfirm base-devel sudo   #  Installation des paquets de base
-
-
-# ====================================================================================
-#     Installation et activation du serveur SSH (OpenSSH)
-sudo pacman -S --noconfirm openssh
-sudo systemctl enable --now sshd   # Active le service SSH au démarrage
-#sudo systemctl start sshd    # Démarre le service SSH maintenant
-# sudo ufw allow ssh
-# ====================================================================================
-# Installer les pilotes NVIDIA 
-sudo pacman -S --noconfirm nvidia nvidia-utils nvidia-settings
-# Activation du service Bluetooth
-sudo systemctl daemon-reexec
-sudo systemctl daemon-reload
-
-# ====================================================================================
-#ne pas faire en root
-# --- Telecharger yay depuis l'AUR 
-sudo pacman -S --needed base-devel git
-git clone https://aur.archlinux.org/yay.git
-cd yay
-yes | makepkg -si --noconfirm --needed --nocheck
+# ============================================================
+# Définir le fuseau horaire Europe/Paris
+sudo ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime    
+#sudo hwclock --systohc   => # Synchroniser l’horloge matérielle (BIOS/UEFI) avec l’horloge système
 
 # ============================================================
-# --- Installer Pamac depuis l’AUR (interface graphique de gestion de paquets) ---
-# https://www.linuxtricks.fr/wiki/arch-linux-parametrer-aur-et-installer-pamac
+#  MISE À JOUR DU SYSTÈME ET PAQUETS DE BASE
+# ============================================================
 
-#yay -S --noconfirm pamac-aur
-# > pamac-manager
-###  yay -S pamac-aur   all???
-#   yay -S --noconfirm --needed pamac-all
-# pr le lancer pamac-manager &
+# Mise à jour complète du système
+sudo pacman -Syu --noconfirm
+
+# Installation des paquets de base essentiels
+sudo pacman -S --needed --noconfirm base-devel git
+# Préparation du dossier pour les clones AUR
+user=spire
+mkdir -p /home/$user/git
+# ============================================================
+#  INSTALLATION ET CONFIGURATION SSH (OpenSSH)
+# ============================================================
+
+# Installation d'OpenSSH
+sudo pacman -S --noconfirm openssh
+
+# Activation et démarrage du service SSH
+sudo systemctl enable --now sshd
+
+# Optionnel : Autoriser SSH dans le pare-feu (si UFW est installé)
+# sudo ufw allow ssh
+###############################################################################################################################################################################
+# ============================================================
+#  INSTALLATION DE YAY (Gestionnaire AUR)
+# ============================================================
+# Important : Exécutez ce script en tant qu'utilisateur normal, pas en root
+cd /home/$user/git
+# Clonage et installation de yay
+git clone https://aur.archlinux.org/yay.git
+cd yay
+yes 'o' | makepkg -sri --noconfirm --needed --nocheck
+#makepkg -si 
+#yay --version
+# ============================================================
+#  INSTALLATION DE PAMAC (Gestionnaire de paquets graphique) 
+# pamac-manager &
+# ============================================================
+
+yay -S --noconfirm --needed pamac-all
 
 
-yay -S --noconfirm --answerclean All snapd
+# ============================================================
+#  INSTALLATION DE FLATPAK (Support des paquets Flatpak)
+# ============================================================
 
-# --- Installer Flatpak et Snap depuis les dépôts officiels ---
-sudo pacman -S --noconfirm flatpak 
-yay -S --noconfirm --answerclean All snapd
+sudo pacman -S --noconfirm flatpak
 
-#yay -S snapd
-
-
-
-# --- Configurer Flathub (le dépôt principal Flatpak) ---
+# Configuration du dépôt Flathub
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-# --- Activer snapd et lier les snaps pour les fichiers .desktop ---
+# ============================================================
+#  INSTALLATION DE SNAPD (Support des paquets Snap)
+# Note: N'utilisez pas "yay -S snapd" (installation basique non automatisée)
+# ============================================================
+
+yay -S --noconfirm --answerclean All snapd
+
+# Activation du service snapd
 sudo systemctl enable --now snapd.socket
+
+# Création du lien symbolique pour /snap
 sudo ln -sf /var/lib/snapd/snap /snap
 
+ ###############################################################################################################################################################################  
+
+## faire mes listes appklicaN?
+###sudo pacman -S --noconfirm --needed $(cat lists/packages.txt)
 
