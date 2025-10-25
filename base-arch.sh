@@ -62,6 +62,7 @@ sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub
 #  INSTALLATION DE SNAPD (Support des paquets Snap)
 # Note: N'utilisez pas "yay -S snapd" (installation basique non automatisée)
 # ============================================================
+export PATH=$PATH:/var/lib/snapd/snap/bin
 
 yay -S --noconfirm --answerclean All snapd
 
@@ -73,6 +74,4 @@ sudo ln -sf /var/lib/snapd/snap /snap
 
  ###############################################################################################################################################################################  
 
-## faire mes listes appklicaN?
-###sudo pacman -S --noconfirm --needed $(cat lists/packages.txt)
 
