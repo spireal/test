@@ -1,5 +1,7 @@
 #!/bin/bash
 
+BASE_DIR=$(pwd)
+
 # ============================================================
 # Définir le fuseau horaire Europe/Paris
 sudo ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime    
@@ -73,5 +75,14 @@ sudo systemctl enable --now snapd.socket
 sudo ln -sf /var/lib/snapd/snap /snap
 
  ###############################################################################################################################################################################  
+
+
+
+# Lancement du script d'installation
+cd "$BASE_DIR"
+echo ""
+echo "Lancement du script d'installation..."
+chmod +x ./install-software.sh
+./install-software.sh
 
 

@@ -43,3 +43,4 @@ network-manager-openvpn
 kdeconnect 
 libreoffice-fresh
 nfs-utils
+nfs-common
