@@ -9,3 +9,4 @@ com.spotify.Client
 com.discordapp.Discord
 com.github.jeromerobert.pdfarranger
 com.visualstudio.code
+io.github.mfat.sshpilot

@@ -4,3 +4,4 @@ perplexity-desktop
 copilot-desktop
 teams-for-linux
 whatsapp-linux-app
+bpytop
